@@ -11,39 +11,60 @@ const Config = {
     filename: 'bundle.js',
   },
   resolve: {
-    root: path.resolve( __dirname, 'src' ),
-    extensions: [
-      '',
-      '.js',
-      '.vue',
-      '.json',
-      '.styl',
+    modules: [
+        path.resolve(__dirname, '..', 'src'),
+        path.resolve(__dirname, '..', 'node_modules'),
     ],
   },
   module: {
-    postLoaders: [
-      {
-        test: /\.js$/,
-        loader: 'ify',
-      },
-    ],
+    // postLoaders: [
+    //   {
+    //     test: /\.js$/,
+    //     loader: 'ify',
+    //   },
+    // ],
     loaders: [
       {
-        test: /\.html$/,
-        loader: 'html',
+        test: /\.tpl\.html$/,
+        use: [
+          {
+            loader: 'underscore-template-loader',
+            options: {
+              attributes: []
+            }
+          }
+        ]
       },
-      {
-        test: /node_modules/,
-        loader: 'ify',
-      },
+      // {
+      //   test: /\.html$/,
+      //   use: [{ loader: 'html-loader' }]
+      // },
+      // {
+      //   test: /node_modules/,
+      //   loader: 'ify',
+      // },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [
+                'syntax-dynamic-import',
+                'transform-decorators-legacy',
+              ]
+            }
+          }
+        ]
       },
       {
         test: /\.json$/,
-        loader: 'json',
+        use: [
+          {
+            loader: 'json-loader',
+          }
+        ]
       },
       {
         test: /\.scss$/,
@@ -81,7 +102,7 @@ const Config = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       inject: 'body',
-      template: 'src/template/index.tpl.html',
+      template: 'src/template/index.html',
     }),
     new CopyWebpackPlugin([
       { from: 'static' },

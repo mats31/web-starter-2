@@ -1,16 +1,19 @@
 /* eslint no-unused-vars: "off" */
-
+import { autobind } from 'core-decorators';
 import domready from 'domready';
 import gsap from 'gsap';
+import AssetLoader from 'core/AssetLoader';
+import Signals from 'core/Signals'; /* exported Signals */
+import Router from 'core/Router';
 import Application from 'views/desktop/Application/Application';
 // import Router from 'core/Router';
-import Signals from 'core/Signals'; /* exported Signals */
 
-import AssetLoader from 'core/AssetLoader';
 
-import './stylesheets/main.styl';
+import './stylesheets/main.scss';
 
 class Main {
+
+  // Setup ---------------------------------------------------------------------
 
   constructor() {
 
@@ -19,14 +22,24 @@ class Main {
 
   setup() {
 
-    this.router = new Router();
     this.start();
+    this.router = new Router({
+      updatePageCallback: this.updatePage,
+    });
   }
 
+  // State ---------------------------------------------------------------------
+
   start() {
-    new Application({
+    this.application = new Application({
       router: this.router,
-    }).$mount('#application');
+    });
+  }
+
+  // Events --------------------------------------------------------------------
+  @autobind
+  updatePage(page) {
+    this.application.updatePage(page);
   }
 }
 

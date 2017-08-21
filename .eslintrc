@@ -42,7 +42,8 @@
   },
   "settings": {
     "import/parser": "babel-eslint",
-    "import/resolver": { "webpack": { "config": "webpack.config.babel.js" } }
+    # "import/resolver": { "webpack": { "config": "webpack/webpack.config.babel.js" } }
+    "import/resolver": { "babel-module": {} }
     # "import/resolver": { "webpack": "webpack.config.babel.js" }
   },
   "plugins": [

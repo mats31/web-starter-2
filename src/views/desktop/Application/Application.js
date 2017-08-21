@@ -1,42 +1,36 @@
-import LoaderView from 'views/common/Loader/Loader';
+import * as pages from 'core/pages';
 import HomeView from 'views/desktop/Home/Home';
-
-export default Vue.extend({
-
-  template,
-
-  emitterEvents: [],
-
-  data() {
-
-    return {};
-  },
-
-  ready() {},
-
-  methods: {},
-
-  components: {
-    'loader-component': LoaderComponent,
-  },
-});
 
 export default class DesktopAppView {
 
   // Setup ---------------------------------------------------------------------
 
   constructor() {
+    this.el = document.getElementById('application');
 
-    this._el = document.getElementByID('application');
-
-    this._home = this._setupHome();
+    this.home = this.setupHome();
   }
 
-  _setupHome() {
+  setupHome() {
 
     const view = new HomeView({
-      parent: this._el,
+      parent: this.el,
     });
+
+    return view;
+  }
+
+  // Events --------------------------------------------------------------------
+
+  updatePage(page) {
+
+    switch (page) {
+      case pages.HOME:
+        this.home.show();
+        break;
+      default:
+        this.home.hide();
+    }
   }
 
 }
