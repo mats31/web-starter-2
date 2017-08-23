@@ -1,7 +1,7 @@
 #Web Starter
 ===================
 
-My Web Starter using Vue.js & Webpack.
+My Web Starter using Webpack 2 and gsap.
 
 After cloning install all dependencies :
 ```bash
