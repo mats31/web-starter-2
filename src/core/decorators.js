@@ -1,25 +1,10 @@
-export function toggle(state, on, off, initialValue) {
-  return function decorator(target) {
-    let privateProp = '_' + state;
-
-    target.prototype[privateProp] = initialValue;
-
-    decorateToggle(target.prototype, privateProp, on, true);
-    decorateToggle(target.prototype, privateProp, off, false);
-
-    target.prototype[state] = function() {
-      return this[privateProp];
-    };
-  };
-}
-
 function decorateToggle(target, stateProp, prop, bool) {
   const descriptor = Object.getOwnPropertyDescriptor(target, prop);
 
   if (descriptor) {
     const fn = descriptor.value;
 
-    descriptor.value = function(...args) {
+    descriptor.value = function (...args) {
       if (this[stateProp] === bool) {
         return;
       }
@@ -30,13 +15,28 @@ function decorateToggle(target, stateProp, prop, bool) {
 
     Object.defineProperty(target, prop, descriptor);
   } else {
-    target[prop] = function() {
+    target[prop] = function () {
       if (this[stateProp] === bool) {
         return;
       }
       this[stateProp] = bool;
     };
   }
+}
+
+export function toggle(state, on, off, initialValue) {
+  return function decorator(target) {
+    const privateProp = `_${state}`;
+
+    target.prototype[privateProp] = initialValue;
+
+    decorateToggle(target.prototype, privateProp, on, true);
+    decorateToggle(target.prototype, privateProp, off, false);
+
+    target.prototype[state] = function () {
+      return this[privateProp];
+    };
+  };
 }
 
 export function visible(initialValue = false) {

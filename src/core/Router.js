@@ -26,7 +26,12 @@ export default class Router {
 
   // State ---------------------------------------------------------------------
 
+  navigateTo(id, options) {
+    this.router.navigate(this.router.generate(id, options));
+  }
+
   // Events --------------------------------------------------------------------
+
   @autobind
   onRouteNotFound() {
     this.updatePageCallback(pages.HOME);
