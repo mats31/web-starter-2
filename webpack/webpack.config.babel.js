@@ -1,5 +1,5 @@
 import path from 'path';
-import webpack from 'webpack';
+import autoprefixer from 'autoprefixer';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
@@ -12,8 +12,8 @@ const Config = {
   },
   resolve: {
     modules: [
-        path.resolve(__dirname, '..', 'src'),
-        path.resolve(__dirname, '..', 'node_modules'),
+      path.resolve(__dirname, '..', 'src'),
+      path.resolve(__dirname, '..', 'node_modules'),
     ],
   },
   module: {
@@ -30,10 +30,10 @@ const Config = {
           {
             loader: 'underscore-template-loader',
             options: {
-              attributes: []
-            }
-          }
-        ]
+              attributes: [],
+            },
+          },
+        ],
       },
       // {
       //   test: /\.html$/,
@@ -53,18 +53,18 @@ const Config = {
               plugins: [
                 'syntax-dynamic-import',
                 'transform-decorators-legacy',
-              ]
-            }
-          }
-        ]
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.json$/,
         use: [
           {
             loader: 'json-loader',
-          }
-        ]
+          },
+        ],
       },
       {
         test: /\.scss$/,
@@ -74,18 +74,16 @@ const Config = {
             loader: 'css-loader',
             options: {
               // url: false // @TODO - CW - we don't want this
-            }
+            },
           },
           {
             loader: 'postcss-loader',
             options: {
-              plugins: function() {
-                return [require('autoprefixer')];
-              }
-            }
+              plugins: () => [autoprefixer],
+            },
           },
-          { loader: 'sass-loader' }
-        ]
+          { loader: 'sass-loader' },
+        ],
       },
       {
         test: /\.(glsl|frag|vert)$/,
