@@ -26,6 +26,7 @@ class Main {
     this.router = new Router({
       updatePageCallback: this.updatePage,
     });
+    this.router.navigo.resolve();
   }
 
   // State ---------------------------------------------------------------------
