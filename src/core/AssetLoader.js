@@ -37,6 +37,7 @@ class AssetLoader {
 
         const percent = (this.assetsLoaded / this.assetsToLoad) * 100;
         Signals.onAssetLoaded.dispatch(percent);
+        console.log(percent);
         if (percent === 100) Signals.onAssetsLoaded.dispatch(percent);
       }, (err) => {
         console.log(err);

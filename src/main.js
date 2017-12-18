@@ -3,6 +3,7 @@ import { autobind } from 'core-decorators';
 import domready from 'domready';
 import gsap from 'gsap';
 import AssetLoader from 'core/AssetLoader';
+import States from 'core/States';
 import Signals from 'core/Signals'; /* exported Signals */
 import Router from 'core/Router';
 import Application from 'views/desktop/Application/Application';
@@ -17,27 +18,25 @@ class Main {
 
   constructor() {
 
-    this.setup();
+    Signals.onAssetsLoaded.add(this.onAssetsLoaded);
   }
-
-  setup() {
-
-    this.start();
-    this.router = new Router({
-      updatePageCallback: this.updatePage,
-    });
-    this.router.navigo.resolve();
-  }
-
-  // State ---------------------------------------------------------------------
 
   start() {
-    this.application = new Application({
-      router: this.router,
+    this.application = new Application({});
+
+    States.router = new Router({
+      updatePageCallback: this.updatePage,
     });
+
+    States.router.navigo.resolve();
   }
 
   // Events --------------------------------------------------------------------
+  @autobind
+  onAssetsLoaded() {
+    this.start();
+  }
+
   @autobind
   updatePage(page) {
     this.application.updatePage(page);
