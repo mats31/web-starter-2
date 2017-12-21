@@ -1,7 +1,7 @@
 import * as pages from 'core/pages';
 import { autobind } from 'core-decorators';
-import LoaderView from 'views/common/Loader/Loader';
-import HomeView from 'views/desktop/Home/Home';
+import LoaderView from 'views/common/Loader';
+import HomeView from 'views/desktop/Home';
 
 export default class DesktopAppView {
 
@@ -11,15 +11,15 @@ export default class DesktopAppView {
     this.el = document.getElementById('application');
 
     this.views = [];
-    this.loader = this.setupLoader();
-    this.home = this.setupHome();
+    this.loader = this._setupLoader();
+    this.home = this._setupHome();
 
     this.views.push(this.loader, this.home);
 
     this._setupEvents();
   }
 
-  setupLoader() {
+  _setupLoader() {
     const view = new LoaderView({
       parent: this.el,
     });
@@ -27,7 +27,7 @@ export default class DesktopAppView {
     return view;
   }
 
-  setupHome() {
+  _setupHome() {
     const view = new HomeView({
       parent: this.el,
     });

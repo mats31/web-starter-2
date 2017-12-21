@@ -6,7 +6,7 @@ import AssetLoader from 'core/AssetLoader';
 import States from 'core/States';
 import Signals from 'core/Signals'; /* exported Signals */
 import Router from 'core/Router';
-import Application from 'views/desktop/Application/Application';
+import Application from 'views/desktop/Application';
 // import Router from 'core/Router';
 
 
@@ -21,7 +21,7 @@ class Main {
     Signals.onAssetsLoaded.add(this.onAssetsLoaded);
   }
 
-  start() {
+  _start() {
     this.application = new Application({});
 
     States.router = new Router({
@@ -34,7 +34,7 @@ class Main {
   // Events --------------------------------------------------------------------
   @autobind
   onAssetsLoaded() {
-    this.start();
+    this._start();
   }
 
   @autobind

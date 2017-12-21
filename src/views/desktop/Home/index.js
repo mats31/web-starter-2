@@ -17,11 +17,17 @@ export default class DesktopHomeView {
       createDOM(template()),
     );
 
-    this.setupEvents();
+    this._addImage();
+    this._setupEvents();
   }
 
-  setupEvents() {
-    Signals.onAssetsLoaded.add(this.onAssetsLoaded);
+  _addImage() {
+    const image = States.resources.getImage('twitter').media;
+    this.el.appendChild(image);
+  }
+
+  _setupEvents() {
+    Signals.onResize.add(this.onResize);
   }
 
   // State ---------------------------------------------------------------------
@@ -35,11 +41,11 @@ export default class DesktopHomeView {
   }
 
   // Events --------------------------------------------------------------------
-  @autobind
-  onAssetsLoaded() {
 
-    const image = States.resources.getImage('twitter').media;
-    this.el.appendChild(image);
+  @autobind
+  onResize(vw, vh) {
+    console.log('width: ', vw);
+    console.log('height: ', vh);
   }
 
 }
