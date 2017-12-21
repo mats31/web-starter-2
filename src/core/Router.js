@@ -22,7 +22,7 @@ export default class Router {
     this.navigo.notFound(this.onRouteNotFound);
     this.navigo.on({
       '/': { as: pages.HOME, uses: this.onRouteHome },
-      '/home': { as: pages.HOME, uses: this.onRouteHome },
+      // '/project/:id': { as: pages.PROJECT, uses: this.onRouteProject },
     });
   }
 

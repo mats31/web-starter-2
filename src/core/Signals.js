@@ -4,8 +4,13 @@ class Signals {
 
   constructor() {
 
+    // Assets
     this.onAssetLoaded = new Signal();
     this.onAssetsLoaded = new Signal();
+
+    // General
+    this.onResize = new Signal();
+    this.onScroll = new Signal();
   }
 }
 
