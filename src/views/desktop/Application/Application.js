@@ -1,4 +1,5 @@
 import * as pages from 'core/pages';
+import { autobind } from 'core-decorators';
 import LoaderView from 'views/common/Loader/Loader';
 import HomeView from 'views/desktop/Home/Home';
 
@@ -14,6 +15,8 @@ export default class DesktopAppView {
     this.home = this.setupHome();
 
     this.views.push(this.loader, this.home);
+
+    this._setupEvents();
   }
 
   setupLoader() {
@@ -32,6 +35,13 @@ export default class DesktopAppView {
     return view;
   }
 
+  _setupEvents() {
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('scroll', this.onScroll);
+
+    this.onResize();
+  }
+
   // Events --------------------------------------------------------------------
 
   updatePage(page) {
@@ -44,6 +54,16 @@ export default class DesktopAppView {
       default:
         this.home.hide();
     }
+  }
+
+  @autobind
+  onResize() {
+    Signals.onResize.dispatch( window.innerWidth, window.innerHeight );
+  }
+
+  @autobind
+  onScroll() {
+    Signals.onScroll.dispatch();
   }
 
 }
