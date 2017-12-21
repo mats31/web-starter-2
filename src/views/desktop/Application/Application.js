@@ -38,6 +38,7 @@ export default class DesktopAppView {
 
     switch (page) {
       case pages.HOME:
+        this.loader.hide();
         this.home.show();
         break;
       default:
