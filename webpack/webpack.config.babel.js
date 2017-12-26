@@ -87,7 +87,7 @@ const Config = {
         ],
       },
       {
-        test: /\.(glsl|frag|vert)$/,
+        test: /\.(glsl|frag|vert|vs|fs)$/,
         loader: 'raw-loader!glslify-loader',
         exclude: /node_modules/,
       },
