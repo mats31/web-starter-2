@@ -36,6 +36,16 @@ export default class Router {
     this.navigo.navigate(this.navigo.generate(id, options));
   }
 
+  getLastRouteResolved() {
+    const lastRouteResolved = this.navigo.lastRouteResolved();
+
+    if (!lastRouteResolved.params) {
+      lastRouteResolved.params = null;
+    }
+
+    return lastRouteResolved;
+  }
+
   // Events --------------------------------------------------------------------
 
   @autobind

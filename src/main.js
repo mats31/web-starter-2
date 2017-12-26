@@ -39,7 +39,9 @@ class Main {
 
   @autobind
   updatePage(page) {
-    this.application.updatePage(page);
+    if (this.application) {
+      this.application.updatePage(page);
+    }
   }
 }
 

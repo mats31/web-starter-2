@@ -1,4 +1,5 @@
 import path from 'path';
+import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -101,6 +102,9 @@ const Config = {
       filename: 'index.html',
       inject: 'body',
       template: 'src/template/index.html',
+    }),
+    new webpack.ProvidePlugin({
+      THREE: 'three',
     }),
     new CopyWebpackPlugin([
       { from: 'static' },

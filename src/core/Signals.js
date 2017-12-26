@@ -7,6 +7,7 @@ class Signals {
     // Assets
     this.onAssetLoaded = new Signal();
     this.onAssetsLoaded = new Signal();
+    this.onScrollWheel = new Signal();
 
     // General
     this.onResize = new Signal();

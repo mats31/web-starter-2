@@ -38,6 +38,8 @@ export default class DesktopAppView {
   _setupEvents() {
     window.addEventListener('resize', this.onResize);
     window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('mousewheel', this.onScrollWheel);
+    window.addEventListener('DOMMouseScroll', this.onScrollWheel);
 
     this.onResize();
   }
@@ -64,6 +66,11 @@ export default class DesktopAppView {
   @autobind
   onScroll() {
     Signals.onScroll.dispatch();
+  }
+
+  @autobind
+  onScrollWheel() {
+    Signals.onScrollWheel.dispatch();
   }
 
 }
