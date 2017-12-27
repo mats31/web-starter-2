@@ -13,7 +13,7 @@ export default class DesktopHomeView {
 
   constructor(options) {
 
-    this.el = options.parent.appendChild(
+    this._el = options.parent.appendChild(
       createDOM(template()),
     );
 
@@ -23,27 +23,31 @@ export default class DesktopHomeView {
 
   _addImage() {
     const image = States.resources.getImage('twitter').media;
-    this.el.appendChild(image);
+    this._el.appendChild(image);
   }
 
   _setupEvents() {
-    Signals.onResize.add(this.onResize);
+    Signals.onResize.add(this._onResize);
   }
 
   // State ---------------------------------------------------------------------
 
   show({ delay = 0 } = {}) {
-    this.el.style.display = 'block';
+    this._el.style.display = 'block';
   }
 
   hide({ delay = 0 } = {}) {
-    this.el.style.display = 'none';
+    this._el.style.display = 'none';
   }
 
   // Events --------------------------------------------------------------------
 
   @autobind
-  onResize(vw, vh) {
+  _onResize(vw, vh) {
+    this.resize(vw, vh);
+  }
+
+  resize(vw, vh) {
     console.log('width: ', vw);
     console.log('height: ', vh);
   }
