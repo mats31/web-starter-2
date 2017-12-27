@@ -10,11 +10,11 @@ export default class DesktopAppView {
   constructor() {
     this.el = document.getElementById('application');
 
-    this.views = [];
-    this.loader = this._setupLoader();
-    this.home = this._setupHome();
+    this._views = [];
+    this._loader = this._setupLoader();
+    this._home = this._setupHome();
 
-    this.views.push(this.loader, this.home);
+    this._views.push(this._loader, this._home);
 
     this._setupEvents();
   }
@@ -36,12 +36,12 @@ export default class DesktopAppView {
   }
 
   _setupEvents() {
-    window.addEventListener('resize', this.onResize);
-    window.addEventListener('scroll', this.onScroll);
-    window.addEventListener('mousewheel', this.onScrollWheel);
-    window.addEventListener('DOMMouseScroll', this.onScrollWheel);
+    window.addEventListener('resize', this._onResize);
+    window.addEventListener('scroll', this._onScroll);
+    window.addEventListener('mousewheel', this._onScrollWheel);
+    window.addEventListener('DOMMouseScroll', this._onScrollWheel);
 
-    this.onResize();
+    this._onResize();
   }
 
   // Events --------------------------------------------------------------------
@@ -50,26 +50,26 @@ export default class DesktopAppView {
 
     switch (page) {
       case pages.HOME:
-        this.loader.hide();
-        this.home.show();
+        this._loader.hide();
+        this._home.show();
         break;
       default:
-        this.home.hide();
+        this._home.hide();
     }
   }
 
   @autobind
-  onResize() {
+  _onResize() {
     Signals.onResize.dispatch( window.innerWidth, window.innerHeight );
   }
 
   @autobind
-  onScroll() {
+  _onScroll() {
     Signals.onScroll.dispatch();
   }
 
   @autobind
-  onScrollWheel() {
+  _onScrollWheel() {
     Signals.onScrollWheel.dispatch();
   }
 
