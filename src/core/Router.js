@@ -8,26 +8,26 @@ export default class Router {
 
   constructor(options) {
     this.updatePageCallback = options.updatePageCallback;
-    this.assetsLoaded = false;
+    this._assetsLoaded = false;
 
-    this.setupRouter();
-    this.setupEvents();
+    this._setupRouter();
+    this._setupEvents();
   }
 
-  setupRouter() {
+  _setupRouter() {
     const root = `${window.location.protocol}//${window.location.host}`;
     const useHash = true;
     this.navigo = new Navigo(root, useHash);
 
-    this.navigo.notFound(this.onRouteNotFound);
+    this.navigo.notFound(this._onRouteNotFound);
     this.navigo.on({
-      '/': { as: pages.HOME, uses: this.onRouteHome },
+      '/': { as: pages.HOME, uses: this._onRouteHome },
       // '/project/:id': { as: pages.PROJECT, uses: this.onRouteProject },
     });
   }
 
-  setupEvents() {
-    Signals.onAssetsLoaded.add(this.onAssetsLoaded);
+  _setupEvents() {
+    Signals.onAssetsLoaded.add(this._onAssetsLoaded);
   }
 
   // State ---------------------------------------------------------------------
@@ -49,17 +49,17 @@ export default class Router {
   // Events --------------------------------------------------------------------
 
   @autobind
-  onAssetsLoaded() {
-    this.assetsLoaded = true;
+  _onAssetsLoaded() {
+    this._assetsLoaded = true;
   }
 
   @autobind
-  onRouteNotFound() {
+  _onRouteNotFound() {
     this.updatePageCallback(pages.HOME);
   }
 
   @autobind
-  onRouteHome() {
+  _onRouteHome() {
     this.updatePageCallback(pages.HOME);
   }
 
