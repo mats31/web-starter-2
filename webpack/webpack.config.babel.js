@@ -18,12 +18,6 @@ const Config = {
     ],
   },
   module: {
-    // postLoaders: [
-    //   {
-    //     test: /\.js$/,
-    //     loader: 'ify',
-    //   },
-    // ],
     loaders: [
       {
         test: /\.tpl\.html$/,
@@ -36,14 +30,6 @@ const Config = {
           },
         ],
       },
-      // {
-      //   test: /\.html$/,
-      //   use: [{ loader: 'html-loader' }]
-      // },
-      // {
-      //   test: /node_modules/,
-      //   loader: 'ify',
-      // },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -73,9 +59,6 @@ const Config = {
           { loader: 'style-loader' },
           {
             loader: 'css-loader',
-            options: {
-              // url: false // @TODO - CW - we don't want this
-            },
           },
           {
             loader: 'postcss-loader',
