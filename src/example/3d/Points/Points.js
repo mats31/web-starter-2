@@ -27,7 +27,7 @@ export default class Points extends THREE.Object3D {
   }
 
   _setupMaterial() {
-    this.material = new THREE.ShaderMaterial({
+    this._material = new THREE.ShaderMaterial({
       transparent: true,
       uniforms: {},
       vertexShader,
