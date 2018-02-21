@@ -6,7 +6,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const Config = {
   devtool: 'inline-source-map',
-  entry: './src/main.js',
+  entry: './src/local_main.js',
   output: {
     path: `${__dirname}/build`,
     filename: 'bundle.js',

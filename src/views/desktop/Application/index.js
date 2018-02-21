@@ -8,6 +8,7 @@ export default class DesktopAppView {
   // Setup ---------------------------------------------------------------------
 
   constructor() {
+    console.info('desktop application initializing');
     this.el = document.getElementById('application');
 
     this._views = [];

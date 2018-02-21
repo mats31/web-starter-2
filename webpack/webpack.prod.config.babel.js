@@ -5,9 +5,13 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 export default {
-  entry: './src/main.js',
+  entry: {
+    desktop: './src/main.js',
+    mobile: './src/mobile_main.js',
+  },
   output: {
     path: path.join(__dirname, '..', 'build'),
     filename: '[name]-[hash].min.js',
@@ -61,6 +65,7 @@ export default {
           use: [
             {
               loader: 'css-loader',
+              options: { minimize: true },
             },
             {
               loader: 'postcss-loader',
@@ -85,9 +90,22 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      filename: 'index.php',
+      inject: false,
+      template: 'src/template/index.php',
+      chunks: ['desktop', 'mobile'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index_subdomain.php',
+      inject: false,
+      template: 'src/template/index_subdomain.php',
+      chunks: ['desktop', 'mobile'],
+    }),
+    new HtmlWebpackPlugin({
       filename: 'index.html',
       inject: 'body',
       template: 'src/template/index.html',
+      chunks: ['desktop'],
     }),
     new webpack.ProvidePlugin({
       THREE: 'three',
@@ -97,6 +115,7 @@ export default {
     ],
     { ignore: ['.DS_Store', '.keep'] }),
     new ExtractTextPlugin('[name]-[hash].min.css', { allChunks: true }),
-    new CleanWebpackPlugin(['build'], { root: `${__dirname}` }),
+    new CleanWebpackPlugin(['build'], { root: path.resolve(__dirname, '..') }),
+    new UglifyJsPlugin(),
   ],
 };

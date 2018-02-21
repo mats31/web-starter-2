@@ -1,5 +1,5 @@
 import States from 'core/States';
-import createDOM from 'utils/dom/createDOM';
+import { createDOM } from 'utils/dom';
 import { autobind } from 'core-decorators';
 import { visible } from 'core/decorators';
 import template from './home.tpl.html';
