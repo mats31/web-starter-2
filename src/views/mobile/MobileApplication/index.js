@@ -1,6 +1,5 @@
 import * as pages from 'core/pages';
 import { autobind } from 'core-decorators';
-import LoaderView from 'views/common/Loader';
 import MobileHomeView from 'views/mobile/MobileHome';
 
 export default class MobileAppView {
@@ -12,20 +11,11 @@ export default class MobileAppView {
     this.el = document.getElementById('application');
 
     this._views = [];
-    this._loader = this._setupLoader();
     this._home = this._setupHome();
 
-    this._views.push(this._loader, this._home);
+    this._views.push(this._home);
 
     this._setupEvents();
-  }
-
-  _setupLoader() {
-    const view = new LoaderView({
-      parent: this.el,
-    });
-
-    return view;
   }
 
   _setupHome() {
@@ -51,7 +41,6 @@ export default class MobileAppView {
 
     switch (page) {
       case pages.HOME:
-        this._loader.hide();
         this._home.show();
         break;
       default:
