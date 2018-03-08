@@ -41,6 +41,7 @@ class MobileMain {
     });
 
     States.router.navigo.resolve();
+    this._application.start();
   }
 
   // Events --------------------------------------------------------------------
@@ -51,8 +52,8 @@ class MobileMain {
 
   @autobind
   updatePage(page) {
-    if (this.application) {
-      this.application.updatePage(page);
+    if (this._application) {
+      this._application.updatePage(page);
     }
   }
 }
