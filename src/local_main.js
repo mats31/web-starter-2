@@ -50,7 +50,7 @@ class Main {
     // Comment out if using only one build
     // import('views/desktop/Application').then((module) => {
     //   import('stylesheets/main.scss').then(() => {
-    //     this._application = new module.Default()
+    //     this._application = new module.default()
     //     this._onLoadApplication()
     //   })
     // })
