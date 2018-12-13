@@ -1,9 +1,9 @@
-import States from 'core/States';
-import { createDOM } from 'utils/dom';
-import { autobind } from 'core-decorators';
-import { visible } from 'core/decorators';
-import template from './loader.tpl.html';
-import './loader.scss';
+import States from 'core/States'
+import { createDOM } from 'utils/dom'
+import { autobind } from 'core-decorators'
+import { visible } from 'core/decorators'
+import template from './loader.tpl.html'
+import './loader.scss'
 
 
 @visible()
@@ -15,28 +15,28 @@ export default class LoaderView {
 
     this.el = options.parent.appendChild(
       createDOM(template()),
-    );
+    )
 
-    this.setupDOM();
-    this.setupEvents();
+    this.setupDOM()
+    this.setupEvents()
 
-    this.show();
+    this.show()
   }
 
   setupDOM() {
-    this.counter = document.createElement('div');
-    this.el.appendChild(this.counter);
+    this.counter = document.createElement('div')
+    this.el.appendChild(this.counter)
   }
 
   setupEvents() {
-    Signals.onAssetLoaded.add(this.onAssetsLoaded);
-    Signals.onAssetsLoaded.add(this.onAssetsLoaded);
+    Signals.onAssetLoaded.add(this.onAssetsLoaded)
+    Signals.onAssetsLoaded.add(this.onAssetsLoaded)
   }
 
   // State ---------------------------------------------------------------------
 
   show({ delay = 0 } = {}) {
-    this.el.style.display = 'block';
+    this.el.style.display = 'block'
   }
 
   hide({ delay = 0 } = {}) {
@@ -47,25 +47,25 @@ export default class LoaderView {
       {
         delay,
         opacity: 0,
-        onComplete: () => { this.el.style.display = 'none'; },
+        onComplete: () => { this.el.style.display = 'none' },
       },
-    );
+    )
   }
 
   // Events --------------------------------------------------------------------
   @autobind
   onAssetLoaded(percent) {
-    const value = `${percent}%`;
+    const value = `${percent}%`
 
-    this.counter.innerHTML = value;
+    this.counter.innerHTML = value
   }
   @autobind
   onAssetsLoaded(percent) {
 
-    const value = `${percent}%`;
+    const value = `${percent}%`
 
-    this.counter.innerHTML = value;
-    this.hide();
+    this.counter.innerHTML = value
+    this.hide()
   }
 
 }

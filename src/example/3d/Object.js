@@ -1,5 +1,5 @@
-import vertexShader from './shaders/basic.vs';
-import fragmentShader from './shaders/basic.fs';
+import vertexShader from './shaders/basic.vs'
+import fragmentShader from './shaders/basic.fs'
 
 
 export default class Object extends THREE.Object3D {
@@ -7,15 +7,15 @@ export default class Object extends THREE.Object3D {
   // Setup ---------------------------------------------------------------------
 
   constructor() {
-    super();
+    super()
 
-    this._setupGeometry();
-    this._setupMaterial();
-    this._setupMesh();
+    this._setupGeometry()
+    this._setupMaterial()
+    this._setupMesh()
   }
 
   _setupGeometry() {
-    this._geometry = new THREE.PlaneBufferGeometry(1, 1, 1, 1);
+    this._geometry = new THREE.PlaneBufferGeometry(1, 1, 1, 1)
   }
 
   _setupMaterial() {
@@ -24,15 +24,15 @@ export default class Object extends THREE.Object3D {
       fragmentShader,
       uniforms: {},
       transparent: true,
-    });
+    })
   }
 
   _setupMesh() {
 
-    this._mesh = new THREE.Mesh(this._geometry, this._material);
-    this.add(this._mesh);
+    this._mesh = new THREE.Mesh(this._geometry, this._material)
+    this.add(this._mesh)
 
-    this.scale.set(10, 10);
+    this.scale.set(10, 10)
   }
 
 }

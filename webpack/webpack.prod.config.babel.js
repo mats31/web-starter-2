@@ -3,11 +3,13 @@ import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 export default {
+  mode: 'production',
   entry: {
     desktop: './src/main.js',
     mobile: './src/mobile_main.js',
@@ -23,7 +25,7 @@ export default {
     ],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tpl\.html$/,
         use: [
@@ -43,8 +45,8 @@ export default {
             loader: 'babel-loader',
             options: {
               plugins: [
-                'syntax-dynamic-import',
-                'transform-decorators-legacy',
+                // 'syntax-dynamic-import',
+                // 'transform-decorators-legacy',
               ],
             },
           },
@@ -60,22 +62,19 @@ export default {
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: { minimize: true },
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer],
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: () => [autoprefixer],
-              },
-            },
-            { loader: 'sass-loader' },
-          ],
-        }),
+          },
+          { loader: 'sass-loader' },
+        ],
       },
       {
         test: /\.(glsl|frag|vert|vs|fs)$/,
@@ -114,8 +113,22 @@ export default {
       { from: 'static' },
     ],
     { ignore: ['.DS_Store', '.keep'] }),
-    new ExtractTextPlugin('[name]-[hash].min.css', { allChunks: true }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name]-[hash].min.css',
+      chunkFilename: "[id].css"
+    }),
     new CleanWebpackPlugin(['build'], { root: path.resolve(__dirname, '..') }),
-    new UglifyJsPlugin(),
   ],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
+  }
 };

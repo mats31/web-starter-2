@@ -1,38 +1,38 @@
-import * as pages from 'core/pages';
-import { autobind } from 'core-decorators';
-import HomeView from 'views/desktop/Home';
+import * as pages from 'core/pages'
+import { autobind } from 'core-decorators'
+import HomeView from 'views/desktop/Home'
 
 export default class DesktopAppView {
 
   // Setup ---------------------------------------------------------------------
 
   constructor() {
-    console.info('desktop application initializing');
-    this.el = document.getElementById('application');
+    console.info('desktop application initializing')
+    this.el = document.getElementById('application')
 
-    this._views = [];
-    this._home = this._setupHome();
+    this._views = []
+    this._home = this._setupHome()
 
-    this._views.push(this._home);
+    this._views.push(this._home)
 
-    this._setupEvents();
+    this._setupEvents()
   }
 
   _setupHome() {
     const view = new HomeView({
       parent: this.el,
-    });
+    })
 
-    return view;
+    return view
   }
 
   _setupEvents() {
-    window.addEventListener('resize', this._onResize);
-    window.addEventListener('scroll', this._onScroll);
-    window.addEventListener('mousewheel', this._onScrollWheel);
-    window.addEventListener('DOMMouseScroll', this._onScrollWheel);
+    window.addEventListener('resize', this._onResize)
+    window.addEventListener('scroll', this._onScroll)
+    window.addEventListener('mousewheel', this._onScrollWheel)
+    window.addEventListener('DOMMouseScroll', this._onScrollWheel)
 
-    this._onResize();
+    this._onResize()
   }
 
   // State ---------------------------------------------------------------------
@@ -44,26 +44,26 @@ export default class DesktopAppView {
 
     switch (page) {
       case pages.HOME:
-        this._home.show();
-        break;
+        this._home.show()
+        break
       default:
-        this._home.hide();
+        this._home.hide()
     }
   }
 
   @autobind
   _onResize() {
-    Signals.onResize.dispatch( window.innerWidth, window.innerHeight );
+    Signals.onResize.dispatch( window.innerWidth, window.innerHeight )
   }
 
   @autobind
   _onScroll() {
-    Signals.onScroll.dispatch();
+    Signals.onScroll.dispatch()
   }
 
   @autobind
   _onScrollWheel() {
-    Signals.onScrollWheel.dispatch();
+    Signals.onScrollWheel.dispatch()
   }
 
 }

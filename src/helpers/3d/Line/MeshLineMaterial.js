@@ -1,5 +1,5 @@
-import basicVertex from './shaders/meshLineVertex.vs';
-import basicFragment from './shaders/meshLineFragment.fs';
+import basicVertex from './shaders/meshLineVertex.vs'
+import basicFragment from './shaders/meshLineFragment.fs'
 
 export default class MeshLineMaterial extends THREE.RawShaderMaterial {
 
@@ -21,8 +21,8 @@ export default class MeshLineMaterial extends THREE.RawShaderMaterial {
       fragmentShader,
       transparent: true,
       ...props,
-    });
+    })
 
-    this.type = 'MeshLineMaterial';
+    this.type = 'MeshLineMaterial'
   }
 }

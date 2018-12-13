@@ -1,94 +1,94 @@
-import States from 'core/States';
-import OBJLoader from 'helpers/3d/OBJLoader/OBJLoader';
-import resources from 'config/resources';
+import States from 'core/States'
+import OBJLoader from 'helpers/3d/OBJLoader/OBJLoader'
+import resources from 'config/resources'
 
 class AssetLoader {
 
   constructor() {
-    this.assetsToLoad = 0;
-    this.assetsLoaded = 0;
+    this.assetsToLoad = 0
+    this.assetsLoaded = 0
 
     if (typeof resources.images !== 'undefined' && resources.images.length > 0) {
-      this.assetsToLoad += resources.images.length;
-      this.loadImages();
+      this.assetsToLoad += resources.images.length
+      this.loadImages()
     }
 
     if (typeof resources.textures !== 'undefined' && resources.textures.length > 0) {
-      this.assetsToLoad += resources.textures.length;
-      this.loadTextures();
+      this.assetsToLoad += resources.textures.length
+      this.loadTextures()
     }
 
     if (typeof resources.sounds !== 'undefined' && resources.sounds.length > 0) {
-      this.assetsToLoad += resources.sounds.length;
-      this.loadSounds();
+      this.assetsToLoad += resources.sounds.length
+      this.loadSounds()
     }
 
     if (typeof resources.videos !== 'undefined' && resources.videos.length > 0) {
-      this.assetsToLoad += resources.videos.length;
-      this.loadVideos();
+      this.assetsToLoad += resources.videos.length
+      this.loadVideos()
     }
 
     if (typeof resources.models !== 'undefined' && resources.models.length > 0) {
-      this.assetsToLoad += resources.models.length;
-      this.loadModels();
+      this.assetsToLoad += resources.models.length
+      this.loadModels()
     }
 
-    if (this.assetsToLoad === 0) Signals.onAssetsLoaded.dispatch(100);
+    if (this.assetsToLoad === 0) Signals.onAssetsLoaded.dispatch(100)
   }
 
   loadImages() {
-    const images = resources.images;
+    const images = resources.images
 
     for ( let i = 0; i < images.length; i += 1 ) {
 
       this.loadImage( images[i] ).then( (image) => {
 
-        States.resources.images.push( image );
-        this.assetsLoaded += 1;
+        States.resources.images.push( image )
+        this.assetsLoaded += 1
 
-        const percent = (this.assetsLoaded / this.assetsToLoad) * 100;
-        Signals.onAssetLoaded.dispatch(percent);
-        console.log(percent);
-        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent);
+        const percent = (this.assetsLoaded / this.assetsToLoad) * 100
+        Signals.onAssetLoaded.dispatch(percent)
+        console.log(percent)
+        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent)
       }, (err) => {
-        console.log(err);
-      });
+        console.log(err)
+      })
 
     }
   }
 
   loadImage(media) {
     return new Promise( ( resolve, reject ) => {
-      const image = new Image();
-      image.alt = media.description;
+      const image = new Image()
+      image.alt = media.description
 
       image.onload = () => {
-        resolve( { id: media.id, media: image } );
-      };
+        resolve( { id: media.id, media: image } )
+      }
 
       image.onerror = () => {
-        reject(`Erreur lors du chargement de l'image : ${image.src}`);
-      };
+        reject(`Erreur lors du chargement de l'image : ${image.src}`)
+      }
 
-      image.src = media.url;
-    });
+      image.src = media.url
+    })
   }
 
   loadTextures() {
-    const textures = resources.textures;
+    const textures = resources.textures
 
     for ( let i = 0; i < textures.length; i += 1 ) {
 
       this.loadTexture( textures[i] ).then( (texture) => {
-        States.resources.textures.push( texture );
-        this.assetsLoaded += 1;
+        States.resources.textures.push( texture )
+        this.assetsLoaded += 1
 
-        const percent = (this.assetsLoaded / this.assetsToLoad) * 100;
-        Signals.onAssetLoaded.dispatch(percent);
-        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent);
+        const percent = (this.assetsLoaded / this.assetsToLoad) * 100
+        Signals.onAssetLoaded.dispatch(percent)
+        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent)
       }, (err) => {
-        console.log(err);
-      });
+        console.log(err)
+      })
 
     }
   }
@@ -98,32 +98,32 @@ class AssetLoader {
       new THREE.TextureLoader().load(
         media.url,
         ( texture ) => {
-          resolve( { id: media.id, media: texture } );
+          resolve( { id: media.id, media: texture } )
         },
         ( xhr ) => {
-          console.log( `${( ( xhr.loaded / xhr.total ) * 100)} % loaded` );
+          console.log( `${( ( xhr.loaded / xhr.total ) * 100)} % loaded` )
         },
         ( xhr ) => {
-          reject( `Une erreur est survenue lors du chargement de la texture : ${xhr}` );
+          reject( `Une erreur est survenue lors du chargement de la texture : ${xhr}` )
         },
-      );
-    });
+      )
+    })
   }
 
   loadSounds() {
-    const sounds = resources.sounds;
+    const sounds = resources.sounds
 
     for (let i = 0; i < sounds.length; i++) {
       this.loadSound( sounds[i] ).then( (sound) => {
-        States.resources.textures.push( sound );
-        this.assetsLoaded += 1;
+        States.resources.textures.push( sound )
+        this.assetsLoaded += 1
 
-        const percent = (this.assetsLoaded / this.assetsToLoad) * 100;
-        Signals.onAssetLoaded.dispatch(percent);
-        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent);
+        const percent = (this.assetsLoaded / this.assetsToLoad) * 100
+        Signals.onAssetLoaded.dispatch(percent)
+        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent)
       }, (err) => {
-        console.log(err);
-      });
+        console.log(err)
+      })
     }
   }
 
@@ -133,89 +133,89 @@ class AssetLoader {
         id: media.id,
         url: media.url,
         useAnalyser: media.analyser,
-      });
+      })
 
       sound.on('ready', () => {
-        resolve( { id: media.id, media: sound } );
-      });
+        resolve( { id: media.id, media: sound } )
+      })
 
       sound.on('error', () => {
-        reject(`Une erreur est survenue lors du chargement du son : ${sound}`);
-      });
-    });
+        reject(`Une erreur est survenue lors du chargement du son : ${sound}`)
+      })
+    })
   }
 
   loadVideos() {
-    const videos = resources.videos;
+    const videos = resources.videos
 
     for ( let i = 0; i < videos.length; i += 1 ) {
 
       this.loadVideo( videos[i] ).then( (video) => {
-        States.resources.videos.push( video );
-        this.assetsLoaded += 1;
-        const percent = (this.assetsLoaded / this.assetsToLoad) * 100;
-        Signals.onAssetLoaded.dispatch(percent);
-        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent);
+        States.resources.videos.push( video )
+        this.assetsLoaded += 1
+        const percent = (this.assetsLoaded / this.assetsToLoad) * 100
+        Signals.onAssetLoaded.dispatch(percent)
+        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent)
       }, (err) => {
-        console.log(err);
-      });
+        console.log(err)
+      })
 
     }
   }
 
   loadVideo(media) {
     return new Promise( ( resolve, reject ) => {
-      const video = document.createElement('video');
+      const video = document.createElement('video')
 
       video.oncanplaythrough = () => {
-        resolve( { id: media.id, media: video } );
-      };
+        resolve( { id: media.id, media: video } )
+      }
 
       video.oncanplay = () => {
-        resolve( { id: media.id, media: video } );
-      };
+        resolve( { id: media.id, media: video } )
+      }
 
       video.onloadedmetadata = () => {
-        resolve( { id: media.id, media: video } );
-      };
+        resolve( { id: media.id, media: video } )
+      }
 
       video.onloadeddata = () => {
-        resolve( { id: media.id, media: video } );
-      };
+        resolve( { id: media.id, media: video } )
+      }
 
       const interval = setInterval( () => {
         if ( video.readyState === 4 ) {
-          clearInterval(interval);
-          resolve( { id: media.id, media: video } );
+          clearInterval(interval)
+          resolve( { id: media.id, media: video } )
         }
-      }, 100);
+      }, 100)
 
       video.onerror = () => {
-        reject(`Une erreur est survenue lors du chargement de la video : ${video}`);
-      };
+        reject(`Une erreur est survenue lors du chargement de la video : ${video}`)
+      }
 
-      video.src = media.url;
+      video.src = media.url
 
-    });
+    })
   }
 
   loadModels() {
 
-    const models = resources.models;
+    const models = resources.models
 
     for ( let i = 0; i < models.length; i += 1 ) {
 
       this.loadModel( models[i] ).then( (model) => {
 
-        States.resources.models.push( model );
-        this.assetsLoaded += 1;
+        States.resources.models.push( model )
+        this.assetsLoaded += 1
 
-        const percent = (this.assetsLoaded / this.assetsToLoad) * 100;
-        Signals.onAssetLoaded.dispatch(percent);
-        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent);
+        const percent = (this.assetsLoaded / this.assetsToLoad) * 100
+        Signals.onAssetLoaded.dispatch(percent)
+        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent)
       }, (err) => {
-        console.error(err);
-      });
+        console.error(err)
+      })
 
     }
   }
@@ -224,13 +224,13 @@ class AssetLoader {
 
     return new Promise( ( resolve, reject ) => {
 
-      const ext = model.url.split('.').pop();
+      const ext = model.url.split('.').pop()
 
 
       switch (ext) {
 
         case 'obj': {
-          const loader = new THREE.OBJLoader();
+          const loader = new THREE.OBJLoader()
 
           // load a resource
           loader.load(
@@ -239,19 +239,19 @@ class AssetLoader {
             // Function when resource is loaded
             ( object ) => {
 
-              resolve( { id: model.id, media: object, type: 'obj' } );
+              resolve( { id: model.id, media: object, type: 'obj' } )
             },
 
             () => {},
             () => {
-              reject('An error happened with the model import.');
+              reject('An error happened with the model import.')
             },
-          );
-          break;
+          )
+          break
         }
 
         default: {
-          const loader = new THREE.OBJLoader();
+          const loader = new THREE.OBJLoader()
 
           // load a resource
           loader.load(
@@ -259,19 +259,19 @@ class AssetLoader {
             model.url,
             // Function when resource is loaded
             ( object ) => {
-              resolve( { id: model.id, media: object, type: 'obj' } );
+              resolve( { id: model.id, media: object, type: 'obj' } )
             },
 
             () => {},
             () => {
-              reject('An error happened with the model import.');
+              reject('An error happened with the model import.')
             },
-          );
+          )
         }
       }
 
-    });
+    })
   }
 }
 
-export default new AssetLoader();
+export default new AssetLoader()
