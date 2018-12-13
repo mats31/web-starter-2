@@ -1,9 +1,7 @@
 {
-  "presets": ["es2015", "stage-0"],
+  "presets": ["@babel/preset-env"],
   "plugins": [
-    "add-module-exports",
-    ["module-resolver", {
-      "root": ["./src"],
-    }]
+    "@babel/plugin-syntax-dynamic-import",
+    ["@babel/plugin-proposal-decorators", {"legacy": true}]  
   ]
 }

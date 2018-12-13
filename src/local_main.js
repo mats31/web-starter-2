@@ -32,25 +32,25 @@ class Main {
 
     // Comment in if using two builds
     if (!States.MOBILE) {
-      import('views/desktop/Application').then((App) => {
+      import('views/desktop/Application').then((module) => {
         import('stylesheets/main.scss').then(() => {
-          this._application = new App();
+          this._application = new module.default();
           this._onLoadApplication();
         });
       });
     } else {
-      import('views/mobile/MobileApplication').then((App) => {
+      import('views/mobile/MobileApplication').then((module) => {
         import('stylesheets/mobile_main.scss').then(() => {
-          this._application = new App();
+          this._application = new module.default();
           this._onLoadApplication();
         });
       });
     }
 
     // Comment out if using only one build
-    // import('views/mobile/MobileApplication').then((App) => {
-    //   import('stylesheets/mobile_main.scss').then(() => {
-    //     this._application = new App();
+    // import('views/desktop/Application').then((module) => {
+    //   import('stylesheets/main.scss').then(() => {
+    //     this._application = new module.Default();
     //     this._onLoadApplication();
     //   });
     // });

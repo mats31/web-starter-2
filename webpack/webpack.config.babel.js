@@ -5,6 +5,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const Config = {
+  mode: 'development',
   devtool: 'inline-source-map',
   entry: './src/local_main.js',
   output: {
@@ -18,7 +19,7 @@ const Config = {
     ],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tpl\.html$/,
         use: [
@@ -38,8 +39,8 @@ const Config = {
             loader: 'babel-loader',
             options: {
               plugins: [
-                'syntax-dynamic-import',
-                'transform-decorators-legacy',
+                // 'syntax-dynamic-import',
+                // 'transform-decorators-legacy',
               ],
             },
           },
