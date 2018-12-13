@@ -29,21 +29,31 @@ class Main {
 
   start() {
 
+
+    // Comment in if using two builds
     if (!States.MOBILE) {
-        import('views/desktop/Application').then((App) => {
-          import('stylesheets/main.scss').then(() => {
-            this._application = new App();
-            this._onLoadApplication();
-          });
+      import('views/desktop/Application').then((App) => {
+        import('stylesheets/main.scss').then(() => {
+          this._application = new App();
+          this._onLoadApplication();
         });
+      });
     } else {
-        import('views/mobile/MobileApplication').then((App) => {
-          import('stylesheets/mobile_main.scss').then(() => {
-            this._application = new App();
-            this._onLoadApplication();
-          });
+      import('views/mobile/MobileApplication').then((App) => {
+        import('stylesheets/mobile_main.scss').then(() => {
+          this._application = new App();
+          this._onLoadApplication();
         });
+      });
     }
+
+    // Comment out if using only one build
+    // import('views/mobile/MobileApplication').then((App) => {
+    //   import('stylesheets/mobile_main.scss').then(() => {
+    //     this._application = new App();
+    //     this._onLoadApplication();
+    //   });
+    // });
   }
 
   _onLoadApplication() {
