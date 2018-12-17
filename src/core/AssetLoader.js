@@ -1,12 +1,57 @@
 import States from 'core/States'
 import OBJLoader from 'helpers/3d/OBJLoader/OBJLoader'
+import GLTFLoader from 'helpers/3d/GLTFLoader/GLTFLoader'
 import resources from 'config/resources'
+import FontFaceObserver from 'fontfaceobserver'
 
 class AssetLoader {
 
   constructor() {
     this.assetsToLoad = 0
     this.assetsLoaded = 0
+    this.JSONS = []
+    this.waitForJSON = true
+
+    if (this.waitForJSON) {
+      if (typeof resources.jsons !== 'undefined' && resources.jsons.length > 0) {
+        this.assetsToLoad += resources.jsons.length
+        this.loadJSONS(() => {
+          const projects = this.JSONS[0].media.projects
+
+          for (let i = 0; i < projects.length; i++) {
+            const project = projects[i];
+
+            if (project.type === 'image') {
+              const object = {
+                id: project.id,
+                url: `images/projects/${project.id}/${project.id}.png`
+              }
+
+              resources.textures.push(object)
+            } else {
+              const object = {
+                id: project.id,
+                url: `videos/projects/${project.id}/${project.id}.mp4`
+              }
+
+              resources.videos.push(object)
+            }
+            
+          }
+
+          this._startLoading()
+        })
+      }
+    } else {
+      this._startLoading()
+    }
+  }
+
+  _startLoading() {
+    if (typeof resources.fonts !== 'undefined' && resources.images.length > 0) {
+      this.assetsToLoad += resources.fonts.length
+      this.loadFonts()
+    }
 
     if (typeof resources.images !== 'undefined' && resources.images.length > 0) {
       this.assetsToLoad += resources.images.length
@@ -34,6 +79,38 @@ class AssetLoader {
     }
 
     if (this.assetsToLoad === 0) Signals.onAssetsLoaded.dispatch(100)
+  }
+
+  loadFonts() {
+    const fonts = resources.fonts
+
+    for (let i = 0; i < fonts.length; i += 1) {
+
+      this.loadFont(fonts[i]).then(() => {
+
+        this.assetsLoaded += 1
+
+        const percent = (this.assetsLoaded / this.assetsToLoad) * 100
+        Signals.onAssetLoaded.dispatch(percent)
+        console.log(percent)
+        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent)
+      }, (err) => {
+        console.log(err)
+      })
+    }
+  }
+
+  loadFont(curFont) {
+    return new Promise((resolve, reject) => {
+      console.log(curFont.id)
+      const font = new FontFaceObserver(curFont.id);
+
+      font.load().then(() => {
+        resolve()
+      }, (err) => {
+        reject('Error at the font loading:' + err)
+      });
+    })
   }
 
   loadImages() {
@@ -224,13 +301,13 @@ class AssetLoader {
 
     return new Promise( ( resolve, reject ) => {
 
-      const ext = model.url.split('.').pop()
+      const ext = model.url.split('.').pop();
 
 
       switch (ext) {
 
         case 'obj': {
-          const loader = new THREE.OBJLoader()
+          const loader = new THREE.OBJLoader();
 
           // load a resource
           loader.load(
@@ -239,19 +316,39 @@ class AssetLoader {
             // Function when resource is loaded
             ( object ) => {
 
-              resolve( { id: model.id, media: object, type: 'obj' } )
+              resolve( { id: model.id, media: object, type: 'obj' } );
             },
 
             () => {},
             () => {
-              reject('An error happened with the model import.')
+              reject('An error happened with the model import.');
             },
-          )
-          break
+          );
+          break;
+        }
+
+        case 'gltf': {
+          const loader = new THREE.GLTFLoader();
+
+          // load a resource
+          loader.load(
+            // resource URL
+            model.url,
+            // Function when resource is loaded
+            (object) => {
+              resolve({ id: model.id, media: object, type: 'gltf' });
+            },
+
+            () => {},
+            () => {
+              reject('An error happened with the model import.');
+            },
+          );
+          break;
         }
 
         default: {
-          const loader = new THREE.OBJLoader()
+          const loader = new THREE.OBJLoader();
 
           // load a resource
           loader.load(
@@ -259,17 +356,60 @@ class AssetLoader {
             model.url,
             // Function when resource is loaded
             ( object ) => {
-              resolve( { id: model.id, media: object, type: 'obj' } )
+              resolve( { id: model.id, media: object, type: 'obj' } );
             },
 
             () => {},
             () => {
-              reject('An error happened with the model import.')
+              reject('An error happened with the model import.');
             },
-          )
+          );
         }
       }
 
+    });
+  }
+
+  loadJSONS(callback) {
+    const jsons = resources.jsons
+
+    for (let i = 0; i < jsons.length; i += 1) {
+
+      this.loadJSON(jsons[i]).then((json) => {
+
+        this.JSONS.push(json)
+
+        States.resources.jsons.push(json)
+        this.assetsLoaded += 1
+
+        if (this.waitForJSON) {
+          callback()
+        } else {
+          const percent = (this.assetsLoaded / this.assetsToLoad) * 100
+          Signals.onAssetLoaded.dispatch(percent)
+
+          if (percent === 100) {
+            Signals.onAssetsLoaded.dispatch(percent)
+          }
+        }
+      }, (err) => {
+        console.error(err)
+      })
+
+    }
+  }
+
+  loadJSON(media) {
+    return new Promise((resolve, reject) => {
+      const request = new XMLHttpRequest()
+      request.overrideMimeType("application/json")
+      request.open('GET', media.url, true)
+      request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == "200") {
+          resolve({ id: media.id, media: JSON.parse(request.responseText) })
+        }
+      }
+      request.send(null)
     })
   }
 }

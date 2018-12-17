@@ -30,6 +30,7 @@
     "core-decorators": "^0.20.0",
     "dat.gui": "^0.7.2",
     "domready": "^1.0.8",
+    "fontfaceobserver": "^2.1.0",
     "glslify-loader": "^2.0.0",
     "gsap": "^2.0.2",
     "min-signal": "0.0.6",
