@@ -1,6 +1,5 @@
 const ressources = {
   images: [
-    // { id: 'logo', url: 'images/imanebahouss-logo-red.png', description: 'logo' },
     { id: 'twitter', url: 'images/twitter.png', description: 'twitter' },
   ],
   textures: [
@@ -15,6 +14,12 @@ const ressources = {
   models: [
     // { id: 'monolith', url: 'models/monolith_blender.obj' },
   ],
+  jsons: [
+    // { id: 'projects', url: 'data/projects.json' }
+  ],
+  fonts: [
+    // { id: 'playfairdisplay' }
+  ]
 };
 
 module.exports = ressources;

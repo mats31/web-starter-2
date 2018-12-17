@@ -10,7 +10,7 @@ class AssetLoader {
     this.assetsToLoad = 0
     this.assetsLoaded = 0
     this.JSONS = []
-    this.waitForJSON = true
+    this.waitForJSON = false
 
     if (this.waitForJSON) {
       if (typeof resources.jsons !== 'undefined' && resources.jsons.length > 0) {
