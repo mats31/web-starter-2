@@ -8,6 +8,7 @@ class States {
 
     this.MOBILE = this.md.phone()
     this.TABLET = this.md.tablet()
+    this.DESKTOP = !this.MOBILE && !this.TABLET
     this.IOS = this.md.is('iOS')
     this.ANDROID = this.md.is('AndroidOS')
     this.IS_IE = window.navigator.userAgent.indexOf('MSIE ') > 0 || !!window.navigator.userAgent.match(/Trident.*rv\:11\./)
