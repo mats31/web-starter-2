@@ -39,7 +39,7 @@
     "postprocessing": "^5.3.2",
     "raf": "^3.4.0",
     "sono": "^2.1.6",
-    "three": "^0.99.0",
+    "three": "^0.102.1",
     "three-orbit-controls": "^82.1.0"
   },
   "devDependencies": {
