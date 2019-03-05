@@ -23,8 +23,11 @@ export default class WebGL {
     this._camera = new THREE.PerspectiveCamera( 45, this._width / this._height, 0.1, 1000 )
     this._camera.position.z = 100
 
+    // this._camera = new THREE.OrthographicCamera(this._width / - 2, this._width / 2, this._height / 2, this._height / - 2, 0, 100);
+    // this._scene.add(this._camera);
+
     this._renderer = new THREE.WebGLRenderer()
-    this._renderer.setSize( width, height )
+    this._renderer.setSize( this._width, this._height )
     this._renderer.setClearColor( 0x000000 )
 
     this.el.appendChild(this._renderer.domElement)
