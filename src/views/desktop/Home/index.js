@@ -13,7 +13,7 @@ export default class DesktopHomeView {
 
   constructor(options) {
 
-    this._el = options.parent.appendChild(
+    this.el = options.parent.appendChild(
       createDOM(template()),
     )
 
@@ -23,7 +23,7 @@ export default class DesktopHomeView {
 
   _addImage() {
     const image = States.resources.getImage('twitter').media
-    this._el.appendChild(image)
+    this.el.appendChild(image)
   }
 
   _setupEvents() {
@@ -33,11 +33,11 @@ export default class DesktopHomeView {
   // State ---------------------------------------------------------------------
 
   show({ delay = 0 } = {}) {
-    this._el.style.display = 'block'
+    this.el.style.display = 'block'
   }
 
   hide({ delay = 0 } = {}) {
-    this._el.style.display = 'none'
+    this.el.style.display = 'none'
   }
 
   // Events --------------------------------------------------------------------
