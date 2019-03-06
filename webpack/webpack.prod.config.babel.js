@@ -1,14 +1,14 @@
-import path from 'path';
-import webpack from 'webpack';
-import autoprefixer from 'autoprefixer';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-export default {
+const Config = {
   mode: 'production',
   entry: {
     desktop: './src/main.js',
@@ -39,14 +39,18 @@ export default {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: (modulePath) => {
+          return /node_modules/.test(modulePath) && !/node_modules\/sono/.test(modulePath);
+        },
         use: [
           {
             loader: 'babel-loader',
             options: {
+              presets: ['@babel/preset-env'],
               plugins: [
-                // 'syntax-dynamic-import',
-                // 'transform-decorators-legacy',
+                "@babel/plugin-syntax-dynamic-import",
+                "@babel/plugin-transform-runtime",
+                ["@babel/plugin-proposal-decorators", { "legacy": true }]
               ],
             },
           },
@@ -70,7 +74,13 @@ export default {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [autoprefixer],
+              plugins: () => [autoprefixer({
+                browsers: [
+                  'last 2 versions',
+                  'iOS >= 8',
+                  'Safari >= 8',
+                ]
+              })],
             },
           },
           { loader: 'sass-loader' },
@@ -112,7 +122,7 @@ export default {
     new CopyWebpackPlugin([
       { from: 'static' },
     ],
-    { ignore: ['.DS_Store', '.keep'] }),
+      { ignore: ['.DS_Store', '.keep'] }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
@@ -132,3 +142,5 @@ export default {
     ]
   }
 };
+
+module.exports = Config;

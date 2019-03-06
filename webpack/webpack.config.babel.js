@@ -1,8 +1,8 @@
-import path from 'path';
-import webpack from 'webpack';
-import autoprefixer from 'autoprefixer';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const Config = {
   mode: 'development',
@@ -33,14 +33,18 @@ const Config = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: (modulePath) => {
+          return /node_modules/.test(modulePath) && !/node_modules\/sono/.test(modulePath);
+        },
         use: [
           {
             loader: 'babel-loader',
             options: {
+              presets: ['@babel/preset-env'],
               plugins: [
-                // 'syntax-dynamic-import',
-                // 'transform-decorators-legacy',
+                "@babel/plugin-syntax-dynamic-import",
+                "@babel/plugin-transform-runtime",
+                ["@babel/plugin-proposal-decorators", { "legacy": true }]
               ],
             },
           },
@@ -64,7 +68,13 @@ const Config = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [autoprefixer],
+              plugins: () => [autoprefixer({
+                browsers: [
+                  'last 2 versions',
+                  'iOS >= 8',
+                  'Safari >= 8',
+                ]
+              })],
             },
           },
           { loader: 'sass-loader' },
