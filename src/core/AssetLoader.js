@@ -1,4 +1,5 @@
 import States from 'core/States'
+import loadFont from 'load-bmfont'
 import OBJLoader from 'helpers/3d/OBJLoader/OBJLoader'
 import GLTFLoader from 'helpers/3d/GLTFLoader/GLTFLoader'
 import resources from 'config/resources'
@@ -76,6 +77,11 @@ class AssetLoader {
     if (typeof resources.models !== 'undefined' && resources.models.length > 0) {
       this.assetsToLoad += resources.models.length
       this.loadModels()
+    }
+
+    if (typeof resources.fontsTextures !== 'undefined' && resources.fontsTextures.length > 0) {
+      this.assetsToLoad += resources.fontsTextures.length
+      this.loadFontsTextures()
     }
 
     if (this.assetsToLoad === 0) Signals.onAssetsLoaded.dispatch(100)
@@ -368,6 +374,21 @@ class AssetLoader {
       }
 
     });
+  }
+
+  loadFontsTexture(fontsTexture) {
+    return new Promise((resolve, reject) => {
+      loadFont(fontsTexture.json, (err, font) => {
+        if (err) {
+          reject('error while loading font texture {1} : ' + err)
+        }
+        new THREE.TextureLoader().load(fontsTexture.image, (texture) => {
+          resolve({ id: fontsTexture.id, media: { font, texture } })
+        }, undefined, (err) => {
+          reject('error while loading font texture {2} : ' + err)
+        })
+      })
+    })
   }
 
   loadJSONS(callback) {

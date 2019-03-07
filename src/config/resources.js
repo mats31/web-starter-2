@@ -17,6 +17,13 @@ const ressources = {
   jsons: [
     // { id: 'projects', url: 'data/projects.json' }
   ],
+  fontsTextures: [
+    // {
+    //   id: 'sdf-xx-large',
+    //   json: 'fonts-textures/playfairdisplay-regular-msdf/xx-large.json',
+    //   image: 'fonts-textures/playfairdisplay-regular-msdf/xx-large.png'
+    // },
+  ],
   fonts: [
     // { id: 'playfairdisplay' }
   ]
