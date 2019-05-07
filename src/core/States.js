@@ -23,6 +23,8 @@ class States {
       sounds: [],
       videos: [],
       models: [],
+      fontsTextures: [],
+      jsons: [],
       getImage(id) {
         return this.images.find( image => image.id === id )
       },
@@ -37,6 +39,12 @@ class States {
       },
       getModel(id) {
         return this.models.find( model => model.id === id )
+      },
+      getFontsTexture(id) {
+        return this.fontsTextures.find(fontsTexture => fontsTexture.id === id)
+      },
+      getJSON(id) {
+        return this.jsons.find(json => json.id === id)
       },
     }
 
