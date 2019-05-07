@@ -376,6 +376,26 @@ class AssetLoader {
     });
   }
 
+  loadFontsTextures() {
+    const fontsTextures = resources.fontsTextures
+
+    for (let i = 0; i < fontsTextures.length; i += 1) {
+
+      this.loadFontsTexture(fontsTextures[i]).then((fontsTexture) => {
+
+        States.resources.fontsTextures.push(fontsTexture)
+        this.assetsLoaded += 1
+
+        const percent = (this.assetsLoaded / this.assetsToLoad) * 100
+        Signals.onAssetLoaded.dispatch(percent)
+        if (percent === 100) Signals.onAssetsLoaded.dispatch(percent)
+      }, (err) => {
+        console.error(err)
+      })
+
+    }
+  }
+
   loadFontsTexture(fontsTexture) {
     return new Promise((resolve, reject) => {
       loadFont(fontsTexture.json, (err, font) => {
