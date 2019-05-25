@@ -40,7 +40,7 @@ const Config = {
       {
         test: /\.js$/,
         exclude: (modulePath) => {
-          return /node_modules/.test(modulePath) && !/node_modules\/sono/.test(modulePath);
+          return /node_modules/.test(modulePath) && !/node_modules\/sono/.test(modulePath) && !/node_modules\/postprocessing/.test(modulePath);
         },
         use: [
           {
