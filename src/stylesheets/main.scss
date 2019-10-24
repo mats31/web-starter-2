@@ -6,8 +6,64 @@
 
 html {
   font-size: 62.5%;
+  overflow: hidden;
+  background: rgb(29, 33, 35);
+  cursor: none;
+  user-select: none;
+
+  button {
+    cursor: none;
+  }
 
   #application {
     @include font-body();
   }
+
+  body {
+    overflow: hidden;
+  }
+  &.ios,
+  &.ios body {
+    position: fixed;
+    overflow: hidden;
+  }
 }
+
+.wrapper {
+  display: block;
+  max-width: 1440px;
+  margin: 0 auto;
+
+  html.mobile & {
+    padding: 0 2rem;
+  }
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  
+  html.mobile.ios & {
+    // height: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+
+  }
+  html.mobile.android & {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
+// html.mobile.ios & {
+//     position: fixed;
+//     height: 100%;
+//   } 
+
+//   html.mobile.ios body {
+//     position: fixed;
+//   }

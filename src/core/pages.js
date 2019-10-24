@@ -1,3 +1,3 @@
-export const INTRO = 'intro'
+export const INTRO = "intro"
 
-export const HOME = 'home'
+export const HOME = "home"

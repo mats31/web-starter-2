@@ -1,19 +1,26 @@
 /* eslint no-unused-vars: "off" */
-import { autobind } from 'core-decorators'
-import domready from 'domready'
-import gsap from 'gsap'
+import { autobind } from "core-decorators"
+import domready from "domready"
+import gsap from "gsap"
 // import AudioController from 'helpers/AudioController' /* exported AudioController */
-import AssetLoader from 'core/AssetLoader'
-import States from 'core/States'
-import Signals from 'core/Signals' /* exported Signals */
-import Router from 'core/Router'
-import LoaderView from 'views/common/Loader'
+import AssetLoader from "core/AssetLoader"
+import States from "core/States"
+import Signals from "core/Signals" /* exported Signals */
+import Stage3d from "core/Stage3d"
+import Router from "core/Router"
+import LoaderView from "views/common/Loader"
+import raf from "raf"
 
 class Main {
-
   // Setup ---------------------------------------------------------------------
 
   constructor() {
+    window.Stage3d = new Stage3d({
+      alpha: true,
+      antialias: false,
+      autoClear: true,
+      preserveDrawingBuffer: false
+    })
 
     this._loader = this._setupLoader()
     Signals.onAssetsLoaded.add(this.onAssetsLoaded)
@@ -21,44 +28,48 @@ class Main {
 
   _setupLoader() {
     const view = new LoaderView({
-      parent: document.body,
+      parent: document.body
     })
 
     return view
   }
 
   start() {
-
-
     // Comment in if using two builds
-    if (!States.MOBILE) {
-      import('views/desktop/Application').then((module) => {
-        import('stylesheets/main.scss').then(() => {
-          this._application = new module.default()
-          this._onLoadApplication()
-        })
-      })
-    } else {
-      import('views/mobile/MobileApplication').then((module) => {
-        import('stylesheets/mobile_main.scss').then(() => {
-          this._application = new module.default()
-          this._onLoadApplication()
-        })
-      })
-    }
+    // if (!States.MOBILE) {
+    //   import('views/desktop/Application').then(module => {
+    //     import('stylesheets/main.scss').then(() => {
+    //       this._application = new module.default();
+    //       this._onLoadApplication();
+
+    //       this.update();
+    //     });
+    //   });
+    // } else {
+    //   import('views/mobile/MobileApplication').then(module => {
+    //     import('stylesheets/mobile_main.scss').then(() => {
+    //       this._application = new module.default();
+    //       this._onLoadApplication();
+
+    //       this.update();
+    //     });
+    //   });
+    // }
 
     // Comment out if using only one build
-    // import('views/desktop/Application').then((module) => {
-    //   import('stylesheets/main.scss').then(() => {
-    //     this._application = new module.default()
-    //     this._onLoadApplication()
-    //   })
-    // })
+    import("views/desktop/Application").then(module => {
+      import("stylesheets/main.scss").then(() => {
+        this._application = new module.default()
+        this._onLoadApplication()
+
+        this.update()
+      })
+    })
   }
 
   _onLoadApplication() {
     States.router = new Router({
-      updatePageCallback: this.updatePage,
+      updatePageCallback: this.updatePage
     })
 
     States.router.navigo.resolve()
@@ -72,14 +83,26 @@ class Main {
   }
 
   @autobind
-  updatePage(page) {
+  updatePage(page, options) {
     if (this._application) {
-      this._application.updatePage(page)
+      this._application.updatePage(page, options)
     }
+  }
+
+  // Update ----------
+
+  @autobind
+  update() {
+    // window.Stage3d.render()
+
+    if (this._application) {
+      this._application.update()
+    }
+
+    raf(this.update)
   }
 }
 
 domready(() => {
-
   new Main()
 })

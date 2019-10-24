@@ -29,7 +29,7 @@ export default class LoaderView {
   }
 
   setupEvents() {
-    Signals.onAssetLoaded.add(this.onAssetsLoaded)
+    Signals.onAssetLoaded.add(this.onAssetLoaded)
     Signals.onAssetsLoaded.add(this.onAssetsLoaded)
   }
 

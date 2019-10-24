@@ -1,9 +1,7 @@
-import { autobind } from 'core-decorators'
-import * as pages from 'core/pages'
-import Navigo from 'navigo'
-
+import { autobind } from "core-decorators"
+import * as pages from "core/pages"
+import Navigo from "navigo"
 export default class Router {
-
   // Setup ---------------------------------------------------------------------
 
   constructor(options) {
@@ -22,8 +20,8 @@ export default class Router {
     this.navigo.notFound(this._onRouteNotFound)
     this.navigo.on({
       '/': { as: pages.HOME, uses: this._onRouteHome },
-      // '/project/:id': { as: pages.PROJECT, uses: this.onRouteProject },
-    })
+      // '/project/:id': { as: pages.PROJECT, uses: this._onRouteProject }
+    });
   }
 
   _setupEvents() {
@@ -63,4 +61,13 @@ export default class Router {
     this.updatePageCallback(pages.HOME)
   }
 
+  // @autobind
+  // _onRouteProject(options) {
+  //   const project = find(projectData, options)
+  //   if (!project) {
+  //     this.updatePageCallback(pages.HOME)
+  //   } else {
+  //     this.updatePageCallback(pages.PROJECT, project)
+  //   }
+  // }
 }

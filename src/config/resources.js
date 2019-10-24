@@ -1,6 +1,10 @@
+import { SMAAEffect } from 'postprocessing';
+
 const ressources = {
   images: [
     { id: 'twitter', url: 'images/twitter.png', description: 'twitter' },
+    // { id: 'smaa-search', url: SMAAEffect.searchImageDataURL, description: 'twitter' },
+    // { id: 'smaa-area', url: SMAAEffect.areaImageDataURL, description: 'twitter' },
   ],
   textures: [
     // { id: 'uv', url: 'textures/uv.jpg' },
@@ -9,19 +13,19 @@ const ressources = {
     // { id: 'intro', url: 'audio/intro.mp3', analyser: false },
   ],
   videos: [
-    // { id: 'mathetmalice', url: 'videos/editis.mp4' },
+    // { id: 'microsoft', url: 'videos/menu/test.mp4' },
   ],
   models: [
-    // { id: 'monolith', url: 'models/monolith_blender.obj' },
+    // { id: 'logo', url: 'models/logo/Logo_Fractured.gltf' },
   ],
   jsons: [
     // { id: 'projects', url: 'data/projects.json' }
   ],
   fontsTextures: [
     // {
-    //   id: 'sdf-xx-large',
-    //   json: 'fonts-textures/playfairdisplay-regular-msdf/xx-large.json',
-    //   image: 'fonts-textures/playfairdisplay-regular-msdf/xx-large.png'
+    //   id: 'helvetica',
+    //   json: 'fonts-textures/helvetica/HelveticaNeueLTStd-BdEx.json',
+    //   image: 'fonts-textures/helvetica/msdf.png'
     // },
   ],
   fonts: [
@@ -29,4 +33,4 @@ const ressources = {
   ]
 };
 
-module.exports = ressources;
+export default ressources;

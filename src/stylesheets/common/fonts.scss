@@ -12,8 +12,100 @@
 $fallbackFonts: Helvetica, Arial, sans-serif;
 
 @mixin font-body() {
-    font-family: 'soleil', $fallbackFonts;
+    font-family: 'Montserrat', $fallbackFonts;
     font-weight: 400;
     font-size: 1rem;
     @include fontSmoothing();
+}
+
+@mixin font-title-1() {
+    font-family: 'HelveticaNeueLTStd-HvEx', $fallbackFonts;
+    font-weight: 400;
+    font-size: 22rem;
+    @include fontSmoothing();
+}
+
+@mixin font-title-2() {
+    font-family: 'HelveticaNeueLTStd-HvEx', $fallbackFonts;
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 3rem;
+    @include fontSmoothing();
+}
+
+@mixin font-title-3() {
+    font-family: 'HelveticaNeueLTStd-BdEx', $fallbackFonts;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 2.6rem;
+    text-transform: uppercase;
+    @include fontSmoothing();
+}
+
+@mixin font-title-4() {
+    font-family: 'HelveticaNeue-LightExt', $fallbackFonts;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 2.6rem;
+    text-transform: uppercase;
+    @include fontSmoothing();
+}
+
+@mixin font-title-5() {
+    font-family: 'HelveticaNeue-LightExt', $fallbackFonts;
+    font-weight: 100;
+    font-size: 2.6rem;
+    line-height: 5rem;
+    @include fontSmoothing();
+}
+// @mixin font-title-2() {
+//     font-family: 'HelveticaNeueLTStd-HvEx', $fallbackFonts;
+//     font-weight: 400;
+//     font-size: 2rem;
+//     line-height: 3rem;
+//     @include fontSmoothing();
+// }
+
+@mixin font-subtitle() {
+    font-family: 'Montserrat', $fallbackFonts;
+    font-weight: 400;
+    font-size: 1.8rem;
+    letter-spacing: 1.8rem;
+    text-transform: uppercase;
+    @include fontSmoothing();
+    
+    @media screen and (max-width:500px) {
+        font-size: 1.5rem;
+        letter-spacing: 1rem;
+    }
+}
+
+@mixin font-text() {
+    font-family: 'HelveticaNeueLTStd-Roman', $fallbackFonts;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    @include fontSmoothing();
+}
+
+.font-title-1 {
+    @include font-title-1();
+}
+.font-title-2 {
+    @include font-title-2();
+}
+.font-title-3 {
+    @include font-title-3();
+}
+.font-title-4 {
+    @include font-title-4();
+}
+.font-title-5 {
+    @include font-title-5();
+}
+.font-subtitle {
+    @include font-subtitle();
+}
+.font-text {
+    @include font-text();
 }

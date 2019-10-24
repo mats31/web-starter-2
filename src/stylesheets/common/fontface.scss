@@ -1,11 +1,58 @@
-// Soleil ------
+// // Soleil ------
+
+// @font-face {
+//   font-family: 'soleil';
+//   src: url('/fonts/soleil-regular.eot');
+//   src: url('/fonts/soleil-regular.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/soleil-regular.woff') format('woff'),
+//        url('/fonts/soleil-regular.ttf') format('truetype'),
+//        url('/fonts/soleil-regular.svg#soleilregular') format('svg');
+//   font-weight: 400;
+// }
+
+// Montserrat
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Regular.woff2') format('woff2'),
+        url('/fonts/Montserrat-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Helvetica 
+@font-face {
+    font-family: 'HelveticaNeueLTStd-Roman';
+    src: url('/fonts/HelveticaNeueLTStd Roman.woff2') format('woff2'),
+        url('/fonts/HelveticaNeueLTStd Roman.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
+}
 
 @font-face {
-  font-family: 'soleil';
-  src: url('/fonts/soleil-regular.eot');
-  src: url('/fonts/soleil-regular.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/soleil-regular.woff') format('woff'),
-       url('/fonts/soleil-regular.ttf') format('truetype'),
-       url('/fonts/soleil-regular.svg#soleilregular') format('svg');
-  font-weight: 400;
+    font-family: 'HelveticaNeueLTStd-BdEx';
+    src: url('/fonts/HelveticaNeueLTStd-BdEx.woff2') format('woff2'),
+        url('/fonts/HelveticaNeueLTStd-BdEx.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
 }
+
+
+@font-face {
+    font-family: 'HelveticaNeueLTStd-HvEx';
+    src: url('/fonts/HelveticaNeueLTStd-HvEx.woff2') format('woff2'),
+        url('/fonts/HelveticaNeueLTStd-HvEx.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'HelveticaNeue-LightExt';
+    src: local('Helvetica 43 Light Extended'), local('HelveticaNeue-LightExt'),
+        url('/fonts/HelveticaNeue-LightExt.woff2') format('woff2'),
+        url('/fonts/HelveticaNeue-LightExt.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+        

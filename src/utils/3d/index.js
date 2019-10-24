@@ -1,3 +1,5 @@
+import addPositionGUI from './addPositionGUI';
+import addStandardMaterialGUI from './addStandardMaterialGUI';
 import getPerspectiveSize from './getPerspectiveSize';
 
-export { getPerspectiveSize };
+export { addPositionGUI, addStandardMaterialGUI, getPerspectiveSize };

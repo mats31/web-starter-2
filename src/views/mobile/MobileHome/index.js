@@ -48,8 +48,7 @@ export default class MobileHomeView {
   }
 
   resize(vw, vh) {
-    console.log('width: ', vw)
-    console.log('height: ', vh)
+    
   }
 
 }
