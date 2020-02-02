@@ -1,5 +1,6 @@
+import aspectRatio from './aspectRatio'
 import createDOM from './createDOM'
 import letterParser from './letterParser'
 import setTransform from './setTransform'
 
-export { createDOM, letterParser, setTransform }
+export { aspectRatio, createDOM, letterParser, setTransform }
