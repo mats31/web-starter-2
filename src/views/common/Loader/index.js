@@ -41,7 +41,7 @@ export default class LoaderView {
 
   hide({ delay = 0 } = {}) {
 
-    TweenLite.to(
+    gsap.to(
       this.el,
       2,
       {

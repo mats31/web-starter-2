@@ -18,6 +18,7 @@ class Main {
   // Setup ---------------------------------------------------------------------
 
   constructor() {
+    window.gsap = gsap
     window.Stage3d = new Stage3d({
       alpha: true,
       antialias: true,
