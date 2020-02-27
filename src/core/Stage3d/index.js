@@ -49,7 +49,7 @@ export default class Stage3d {
     // this.controls = new OrbitControls(this.camera);
 
     dat.GUI.prototype.removeLightFolder = function(name) {
-      const folder = this.__folders.Lights.__folders[name];
+      const folder = this.__folders.LightController.__folders[name];
       if (!folder) {
         return;
       }
@@ -57,23 +57,23 @@ export default class Stage3d {
       folder.domElement.parentNode.parentNode.removeChild(
         folder.domElement.parentNode
       );
-      delete this.__folders.Lights.__folders[name];
+      delete this.__folders.LightController.__folders[name];
       this.onResize();
     };
     window.gui = new dat.GUI();
     window.guiParams = {};
 
-    // this._lightController = new LightController({
-    //   lights: [
-    //     // { type: 'ambient', color: 0xffffff, intensity: 1, castShadow: false, helper: false },
-    //     // { type: 'directional', color: 0xffffff, intensity: 1, castShadow: false, helper: false },
-    //     // { type: 'hemisphere', skyColor: 0xffffff, groundColor: 0xd00000, intensity: 1, helper: false, position: new THREE.Vector3(-1, 1, 0) },
-    //     // { type: 'point', color: 0xffffff, intensity: 1, distance: 10, decay: 2 },
-    //     // { type: 'rect', color: 0xffffff, intensity: 1, width: 10, height: 10 },
-    //     // { type: 'spot', color: 0xffffff, castShadow: false, intensity: 1, distance: 10, angle: 0.79, penumbra: 0.2, decay: 2 },
-    //   ],
-    //   scene: this.scene
-    // });
+    this._lightController = new LightController({
+      lights: [
+        // { type: 'ambient', color: 0xffffff, intensity: 1, castShadow: false, helper: false },
+        // { type: 'directional', color: 0xffffff, intensity: 1, castShadow: false, helper: false },
+        // { type: 'hemisphere', skyColor: 0xffffff, groundColor: 0xd00000, intensity: 1, helper: false, position: new THREE.Vector3(-1, 1, 0) },
+        // { type: 'point', color: 0xffffff, intensity: 1, distance: 10, decay: 2 },
+        // { type: 'rect', color: 0xffffff, intensity: 1, width: 10, height: 10 },
+        // { type: 'spot', color: 0xffffff, castShadow: false, intensity: 1, distance: 10, angle: 0.79, penumbra: 0.2, decay: 2 },
+      ],
+      scene: this.scene
+    });
 
     this.composer = null;
 

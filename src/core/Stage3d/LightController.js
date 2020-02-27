@@ -3,10 +3,7 @@ export default class LightController {
     this._lights = options.lights || []
     this._scene = options.scene
 
-    const n = Math.floor(Math.random() * 11)
-    const k = Math.floor(Math.random() * 1000000)
-    const m = String.fromCharCode(n) + k
-    this._folder = window.gui.addFolder(`Lights-${m}`)
+    this._folder = window.gui.addFolder('LightController')
 
     window.guiParams.lights = {
       addAmbient: () => {
@@ -117,15 +114,15 @@ export default class LightController {
         directionalFolder.add(window.guiParams.lights.id, 'castShadow').onChange((value) => {
           directionalLight.castShadow = value
         })
-        directionalFolder.add(window.guiParams.lights.id, 'x', -10, 10).step(0.005).onChange((value) => {
+        directionalFolder.add(window.guiParams.lights.id, 'x', -100, 100).step(0.005).onChange((value) => {
           directionalLight.position.x = value
           helper.update()
         })
-        directionalFolder.add(window.guiParams.lights.id, 'y', -10, 10).step(0.005).onChange((value) => {
+        directionalFolder.add(window.guiParams.lights.id, 'y', -100, 100).step(0.005).onChange((value) => {
           directionalLight.position.y = value
           helper.update()
         })
-        directionalFolder.add(window.guiParams.lights.id, 'z', -10, 10).step(0.005).onChange((value) => {
+        directionalFolder.add(window.guiParams.lights.id, 'z', -100, 100).step(0.005).onChange((value) => {
           directionalLight.position.z = value
           helper.update()
         })
@@ -232,15 +229,15 @@ export default class LightController {
         pointFolder.addColor(window.guiParams.lights.id, 'color').onChange((value) => {
           pointLight.color = new THREE.Color(value)
         })
-        pointFolder.add(window.guiParams.lights.id, 'x', -20, 20).step(0.005).onChange((value) => {
+        pointFolder.add(window.guiParams.lights.id, 'x', -100, 100).step(0.005).onChange((value) => {
           pointLight.position.x = value
           helper.update()
         })
-        pointFolder.add(window.guiParams.lights.id, 'y', -20, 20).step(0.005).onChange((value) => {
+        pointFolder.add(window.guiParams.lights.id, 'y', -100, 100).step(0.005).onChange((value) => {
           pointLight.position.y = value
           helper.update()
         })
-        pointFolder.add(window.guiParams.lights.id, 'z', -20, 20).step(0.005).onChange((value) => {
+        pointFolder.add(window.guiParams.lights.id, 'z', -100, 100).step(0.005).onChange((value) => {
           pointLight.position.z = value
           helper.update()
         })
@@ -363,16 +360,28 @@ export default class LightController {
         spotFolder.addColor(window.guiParams.lights.id, 'color').onChange((value) => {
           spotLight.color = new THREE.Color(value)
         })
-        spotFolder.add(window.guiParams.lights.id, 'x', -20, 20).step(0.005).onChange((value) => {
+        spotFolder.add(window.guiParams.lights.id, 'x', -100, 100).step(0.005).onChange((value) => {
           spotLight.position.x = value
           helper.update()
         })
-        spotFolder.add(window.guiParams.lights.id, 'y', -20, 20).step(0.005).onChange((value) => {
+        spotFolder.add(window.guiParams.lights.id, 'y', -100, 100).step(0.005).onChange((value) => {
           spotLight.position.y = value
           helper.update()
         })
-        spotFolder.add(window.guiParams.lights.id, 'z', -20, 20).step(0.005).onChange((value) => {
+        spotFolder.add(window.guiParams.lights.id, 'z', -100, 100).step(0.005).onChange((value) => {
           spotLight.position.z = value
+          helper.update()
+        })
+        spotFolder.add(window.guiParams.lights.id, 'penumbra', 0, 1).step(0.005).onChange((value) => {
+          spotLight.penumbra = value
+          helper.update()
+        })
+        spotFolder.add(window.guiParams.lights.id, 'decay', 0, 2).step(0.005).onChange((value) => {
+          spotLight.decay = value
+          helper.update()
+        })
+        spotFolder.add(window.guiParams.lights.id, 'angle', 0, 1.05).step(0.005).onChange((value) => {
+          spotLight.angle = value
           helper.update()
         })
         spotFolder.add(window.guiParams.lights.id, 'helper').onChange((value) => {
