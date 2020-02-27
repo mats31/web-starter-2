@@ -1,7 +1,14 @@
+// import States from 'core/States'
+
 export default class FBO {
   constructor({
     width = 256,
     height = 256,
+    format = THREE.RGBAFormat,
+    type = THREE.FloatType,
+    minFilter = THREE.NearestFilter,
+    magFilter = THREE.NearestFilter,
+    depthBuffer = false,
     stageID = `fbo-${Math.random()}`,
     material,
   }) {
@@ -10,12 +17,12 @@ export default class FBO {
     const options = {
       wrapS: THREE.ClampToEdgeWrapping,
       wrapT: THREE.ClampToEdgeWrapping,
-      minFilter: THREE.NearestFilter,
-      magFilter: THREE.NearestFilter,
-      format: THREE.RGBAFormat,
-      type: THREE.FloatType,
+      minFilter,
+      magFilter,
+      format,
+      type,
       stencilBuffer: false,
-      depthBuffer: false,
+      depthBuffer,
       generateMipmaps: false,
     }
 
@@ -26,7 +33,12 @@ export default class FBO {
 
     this._scene = Stage3d.addScene({ id: stageID })
     this._camera = Stage3d.addOrthographicCamera({ id: stageID, width: 1, height: 1, near: 0, far: 1, onResize: false })
-    this._mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(1, 1, 1, 1))
+    this._geometry = new THREE.BufferGeometry()
+    this._geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array([-0.5, -0.5, 1.5, -0.5, -0.5, 1.5]), 2))
+    this._geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array([0, 0, 2, 0, 0, 2]), 2))
+    this._mesh = new THREE.Mesh(this._geometry)
+    // this._mesh = new THREE.Mesh(this._geometry, new THREE.MeshBasicMaterial({ map: States.resources.getTexture('uv').media }))
+    // this._mesh.scale.set(0.5, 0.5, 1)
 
     this._scene.add(this._mesh)
     this.texture = this.simulation.uniforms.t_pos.value

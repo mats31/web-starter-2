@@ -44,7 +44,7 @@ export default class AbstractInstanced extends THREE.Object3D {
 
       this.aScale.setXYZ( i, 1, 1, 1 )
 
-      const orientation = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), 0)
+      const orientation = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), 0 )
       this.aOrientation.setXYZW( i, orientation.x, orientation.y, orientation.z, orientation.w )
     }
   }
@@ -70,6 +70,14 @@ export default class AbstractInstanced extends THREE.Object3D {
   }
 
   // Getters -------------------------------------------------------------------
+
+  get geometry() {
+    return this._geometry
+  }
+
+  get material() {
+    return this._material
+  }
 
   getAttribute(attr) {
     return this[attr]
