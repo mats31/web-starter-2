@@ -8,6 +8,7 @@ export default class Stage3d {
     alpha = false,
     antialias = false,
     autoClear = true,
+    clearColor = 0xff0000,
     preserveDrawingBuffer = false
   } = {}) {
     this.scenes = [];
@@ -39,7 +40,7 @@ export default class Stage3d {
     });
     this.renderer.autoClear = autoClear;
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setClearColor(0xff0000);
+    this.renderer.setClearColor(clearColor);
     this.renderers.push(this.renderer);
 
     this.time = 0;
